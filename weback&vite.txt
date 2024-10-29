@@ -1,0 +1,142 @@
+1、构建工具简介
+    - 打包代码、构建工具
+    - webpack
+    - vite
+
+2、webpack介绍
+    - 使用步骤
+        1. 初始化项目
+            - yarn init -y
+
+        2. 安装依赖  webpack、webpack-cli(命令行工具)
+            - yarn add -D webpack webpack-cli
+            - D 是项目运行还是项目开发，开发-D，运行不＋D
+
+        3. 项目中创建src目录，在src中编写代码（index.js）
+        
+        4. 打包
+            - yarn webpack
+            - 打包后观察dis目录
+
+3、配置文件简介
+    - webpack配置文件
+        - webpack.config.js
+        - 给node看的
+
+4、entry
+    - 入口
+    - 配置
+
+5、output
+    - 出口
+    - 配置
+    - 是一个对象
+    - output: {
+        clean: true,
+      }  清除之前的
+
+6、loaders
+    - webpack默认只能处理js文件
+        - 想要引入其它类型文件，引入loaders
+        - 以CSS为例
+            - css-loader可以处理js中的样式
+            - 需要什么loader，就引进什么
+            - 步骤
+                1. 安装：yarn add css-loader -D
+                   安装：yarn add style-loader -D
+                2. 配置：
+                    在index.js中
+                        import "./style/index.css"
+                    在webpack.config.js
+                        module: {
+                            rules: [
+                                {
+                                    test: /\.css$/i,
+                                    //顺序很重要，从后往前
+                                    use: ['style-loader', 'css-loader']
+                                },
+                            ],
+                        },
+            - 引入新的类型文件时，一定要引入文件的loader
+            - https://webpack.js.org/guides/asset-management/#setup
+
+7、babel工具（解决兼容性）
+    - js新特性，在旧浏览器中兼容性并不好，导致我们无法使用一些新特性，
+    - 使用新特性，采用折中方式，依然使用新特性完成代码，通过工具将新代码转换为旧代码
+    - babel工具，新的js转换旧的js，提高代码兼容性
+    - weback引入babel
+        1. 安装
+            yarn add -D babel-loader @babel/core @babel/preset-env
+        2. 配置
+            module: {
+                rules: [
+                    {
+                    test: /\.(?:js|mjs|cjs)$/,
+                    exclude: /node_modules/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                        targets: "defaults",
+                        presets: [
+                            ['@babel/preset-env']
+                        ]
+                        }
+                    }
+                    }
+                ]
+            }
+        3. 在package.json中设置兼容列表
+            "browserslist":[
+                "defaults",
+            ]
+
+8、插件（plugin）
+    - 为webpack扩展功能
+        - html-webpack-plugin  自动生成html页面
+            1. 安装 yarn add -D html-webpack-plugin
+            2. 配置
+                在webpack.config.js中
+                    const HTMLPlugin = require("html-webpack-plugin")
+               
+                    plugins: [
+                        new HTMLPlugin()
+                    ]
+
+9、开发服务器
+    - yarn webpack --watch 
+         监视，随时更行
+    
+    - yarn add -D webpack-dev-server
+        安装一个webpack的开发服务器
+
+    - yarn webpack serve
+    - yarn webpack serve --open
+        自动打开
+
+    - 用服务器开发完成后，一定要手动yarn webpack
+
+10、inline-source-map
+     在webpack.config.js中
+        devtool: "inline-source-map"
+
+11、Vite
+    - Vite也是前端构建工具
+    - 相较于webpack，vite采用了不同的运行方式
+        - 开发时，不对代码打包，直接采用ESM的方式运行项目
+        - 部署时，再对项目打包
+
+        - 开发项目ES模块
+        - 打包也是ES模块
+    - 速度快
+    - 安装开发依赖
+        yarn add -D vite
+    - 操作
+        yarn vite  启动默认开发服务器
+        yarn vite build  打包
+        yarn vite preview  预览打包后的代码，打包后启动服务器
+        yarn create vite  创建vite项目
+
+12、vite配置
+    - 配置文件：vite.config.js
+    - ES6模块化规范
+    - 插件 官网https://cn.vite.dev/
