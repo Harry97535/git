@@ -1,0 +1,32 @@
+1、构建工具简介
+    - 打包代码、构建工具
+    - webpack
+    - vite
+
+2、webpack介绍
+    - 使用步骤
+        1. 初始化项目
+            - yarn init -y
+
+        2. 安装依赖  webpack、webpack-cli(命令行工具)
+            - yarn add -D webpack webpack-cli
+            - D 是项目运行还是项目开发，开发-D，运行不＋D
+
+        3. 项目中创建src目录，在src中编写代码（index.js）
+        
+        4. 打包
+            - yarn webpack
+            - 打包后观察dis目录
+
+3、配置文件简介
+    - webpack配置文件
+        - webpack.config.js
+        - 给node看的
+
+4、entry
+    - 入口
+    - 配置
+
+5、output
+    - 出口
+    - 配置
